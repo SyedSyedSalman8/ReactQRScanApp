@@ -5,6 +5,7 @@ import { createStackNavigator } from "react-navigation-stack";
 
 import Home from "./Home";
 import Feed from "./Feed";
+import QRScan from "./QRScan";
 
 export default class App extends React.Component {
   render() {
@@ -18,6 +19,9 @@ const AppNavigator = createStackNavigator({
   },
   Feed: {
     screen: Feed,
+  },
+  QRScan: {
+    screen: QRScan,
   },
 });
 
