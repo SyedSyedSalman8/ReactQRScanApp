@@ -1,11 +1,54 @@
 import React from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
 
 export default class Feed extends React.Component {
+  state = {
+    id: "",
+    dataSource: "",
+  };
+
+  componentDidMount() {
+    return fetch(
+      "https://my-json-server.typicode.com/syedsyedsalman8/qrcode-react/rewardPoints"
+    )
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState(
+          {
+            isLoading: false,
+            dataSource: responseJson,
+          },
+          function () {
+            console.log("length " + this.state.dataSource.length);
+          }
+        );
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+  rewardPoints() {
+    console.log("Inside rewards id " + this.state.id);
+
+    var data1 = this.state.dataSource.map(function (item) {
+      return {
+        id: item.id,
+        points: item.points,
+        authId: item.authId,
+      };
+    });
+    console.log("datalength: " + data1.length);
+    for (let j = 0; j < data1.length; j++) {
+      if (data1[j].authId == this.state.id) {
+        alert(data1[j].points + " points");
+      }
+    }
+  }
+
   render() {
     const { navigation } = this.props;
-    var id = JSON.stringify(navigation.getParam("id", "NA"));
-    console.log(id);
+    id = JSON.stringify(navigation.getParam("id", "NA"));
+    console.log(" id " + id);
     return (
       <View style={styles.container}>
         <Text style={styles.TextStyle}> User Details are as follows: </Text>
@@ -21,15 +64,24 @@ export default class Feed extends React.Component {
         <Text style={styles.TextStyle}>
           Age: {JSON.stringify(navigation.getParam("age", "NA"))}
         </Text>
-        <View style={styles.loginBtn}>
+        <View style={styles.Button}>
           <Button
-            title="QR Scan"
+            title="Reward Points"
+            onPress={this.rewardPoints.bind(this, (this.state.id = id))}
+          >
+            <Text style={styles.loginText}>Login</Text>
+          </Button>
+        </View>
+        <View style={styles.loginBtn}>
+          <TouchableOpacity
             onPress={() =>
               this.props.navigation.navigate("QRScan", {
                 id: id,
               })
             }
-          />
+          >
+            <Text style={styles.loginText}>Scan QR</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );

@@ -1,5 +1,13 @@
 import React from "react";
-import { StyleSheet, Text, View, Button, TextInput, Alert } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TextInput,
+  Alert,
+  TouchableOpacity,
+} from "react-native";
 
 export default class Home extends React.Component {
   state = { email: "", password: "", dataSource: "" };
@@ -25,17 +33,6 @@ export default class Home extends React.Component {
   }
   login() {
     console.log("array length " + this.state.dataSource.length);
-    const data = [
-      { key: 1, label: "Service1" },
-      { key: 2, label: "Service2" },
-      { key: 3, label: "Service3" },
-    ];
-    var jsonData = {
-      services: [
-        { id: 1, name: "salman" },
-        { id: 2, name: "Embassies" },
-      ],
-    };
 
     var data1 = this.state.dataSource.map(function (item) {
       return {
@@ -104,7 +101,9 @@ export default class Home extends React.Component {
           />
         </View>
         <View style={styles.loginBtn}>
-          <Button title="Login" onPress={this.login.bind(this)} />
+          <TouchableOpacity onPress={this.login.bind(this)}>
+            <Text style={styles.loginText}>Login</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
