@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 
-export default function App() {
+export default function App({ route }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
 
@@ -19,20 +19,27 @@ export default function App() {
     fetch(
       "https://my-json-server.typicode.com/syedsyedsalman8/qrcode-react/rewardPoints",
       {
+        // Adding method type
         method: "POST",
+
+        // Adding body or contents to send
+        body: JSON.stringify({
+          id: 3,
+          points: data,
+          authId: 2,
+        }),
+
+        // Adding headers to the request
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          "Content-type": "application/json; charset=UTF-8",
         },
-        body: JSON.stringify([
-          {
-            id: 3,
-            points: data,
-            authId: 3,
-          },
-        ]),
       }
-    );
+    )
+      // Converting to JSON
+      .then((response) => response.json())
+
+      // Displaying results to console
+      .then((json) => console.log(json));
   };
 
   if (hasPermission === null) {

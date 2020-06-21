@@ -4,6 +4,8 @@ import { StyleSheet, Text, View, Button } from "react-native";
 export default class Feed extends React.Component {
   render() {
     const { navigation } = this.props;
+    var id = JSON.stringify(navigation.getParam("id", "NA"));
+    console.log(id);
     return (
       <View style={styles.container}>
         <Text style={styles.TextStyle}> User Details are as follows: </Text>
@@ -22,7 +24,11 @@ export default class Feed extends React.Component {
         <View style={styles.loginBtn}>
           <Button
             title="QR Scan"
-            onPress={() => this.props.navigation.navigate("QRScan")}
+            onPress={() =>
+              this.props.navigation.navigate("QRScan", {
+                id: id,
+              })
+            }
           />
         </View>
       </View>

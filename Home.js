@@ -65,6 +65,7 @@ export default class Home extends React.Component {
       ) {
         console.log("logged in");
         this.props.navigation.navigate("Feed", {
+          id: data1[j].key,
           name: data1[j].name,
           email: data1[j].email,
           mobile: data1[j].mobile,
