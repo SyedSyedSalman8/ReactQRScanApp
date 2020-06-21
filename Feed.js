@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
 
 export default class Feed extends React.Component {
   render() {
@@ -19,6 +19,12 @@ export default class Feed extends React.Component {
         <Text style={styles.TextStyle}>
           Age: {JSON.stringify(navigation.getParam("age", "NA"))}
         </Text>
+        <View style={styles.loginBtn}>
+          <Button
+            title="QR Scan"
+            onPress={() => this.props.navigation.navigate("QRScan")}
+          />
+        </View>
       </View>
     );
   }
