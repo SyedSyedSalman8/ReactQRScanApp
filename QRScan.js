@@ -24,11 +24,13 @@ export default function App() {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          id: 3,
-          points: data,
-          authId: 3,
-        }),
+        body: JSON.stringify([
+          {
+            id: 3,
+            points: data,
+            authId: 3,
+          },
+        ]),
       }
     );
   };
